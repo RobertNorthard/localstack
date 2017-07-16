@@ -87,6 +87,9 @@ def load_plugin_from_path(file_path):
 
 
 def load_plugins():
+    logging.captureWarnings(True)
+    logging.basicConfig(level=logging.WARNING)
+
     loaded_files = []
     for module in pkgutil.iter_modules():
         if six.PY3 and not isinstance(module, tuple):
@@ -305,6 +308,7 @@ def start_infra(async=False, apis=None):
 
         # set up logging
         warnings.filterwarnings('ignore')
+        logging.captureWarnings(True)
         logging.basicConfig(level=logging.WARNING)
         logging.getLogger('botocore').setLevel(logging.ERROR)
         logging.getLogger('elasticsearch').setLevel(logging.ERROR)
